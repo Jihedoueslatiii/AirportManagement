@@ -143,7 +143,7 @@ namespace AM.ApplicationCore.Services
         // Method 14: SeniorTravellers
         public List<Traveller> SeniorTravellers(Flight flight)
         {
-            return flight.Passenger
+            return flight.Passengers
                 .OfType<Traveller>()
                 .OrderByDescending(t => t.BirthDate)
                 .Take(3)

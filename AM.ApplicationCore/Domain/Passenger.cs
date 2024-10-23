@@ -1,60 +1,42 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+using System.Xml.Linq;
 
 namespace AM.ApplicationCore.Domain
 {
     public class Passenger
     {
+        // Propriété PassportNumber comme clé primaire avec 7 caractères
+        [Key]
+        [StringLength(7, ErrorMessage = "Le numéro de passeport doit comporter exactement 7 caractères.")]
+        public string PassportNumber { get; set; }
 
+        // Propriété FullName
+        public FullName Name { get; set; } = new FullName();
+
+        // Propriété BirthDate affichée en tant que "Date of Birth"
+        [Display(Name = "Date of Birth")]
+        [DataType(DataType.Date, ErrorMessage = "La date de naissance doit être une date valide.")]
         public DateTime BirthDate { get; set; }
-        // public int PassportNumber { get; set; }
-        public int PassengerID { get; set; }
+
+        // Validation de l'adresse e-mail
+        [EmailAddress(ErrorMessage = "L'adresse e-mail n'est pas valide.")]
         public string EmailAddress { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public int TelNumber { get; set; }
 
-        ICollection<Flight> Flights { get; set; }
+        // Validation du numéro de téléphone avec une longueur de 8 chiffres
+        [RegularExpression(@"^\d{8}$", ErrorMessage = "Le numéro de téléphone doit comporter exactement 8 chiffres.")]
+        public string TelNumber { get; set; }
+
+        // Propriété de navigation pour les vols (many-to-many)
+        public ICollection<Flight> Flights { get; set; }
+
+      
 
 
-        public override string? ToString()
-        {
-            return"FirstName"+FirstName;
-        }
-
-Plane plane1 = new Plane(PlaneType.Airbus,150,DateTime.Now);
-
-        public bool CheckProfile(string firstName, string lastName)
-        {
-            return this.FirstName == firstName && this.LastName == lastName;
-        }
-
-        public bool CheckProfile(string firstName, string lastName, string email)
-        {
-            return this.FirstName == firstName && this.LastName == lastName && this.EmailAddress == email;
-        }
-
-        public bool CheckProfile1(string firstName, string lastName, string email)
-        {
-            if (email == null)
-            {
-                return this.FirstName == firstName && this.LastName == lastName;
-            }
-            else
-            {
-                return this.FirstName == firstName && this.LastName == lastName && this.EmailAddress == email;
-            }
-        }
         public virtual void PassengerType()
         {
             Console.WriteLine("I am a passenger called Jihed Oueslati");
         }
-
-
-
-
     }
 }

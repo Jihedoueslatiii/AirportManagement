@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,9 @@ namespace AM.ApplicationCore.Domain
     public class Plane
     {
         public int PlaneID { get; set; }
+
+        // Capacity must be a positive integer
+        [Range(1, int.MaxValue, ErrorMessage = "Capacity must be a positive integer.")]
         public int Capacity { get; set; }
         public DateTime ManifactureDate { get; set; }
         public PlaneType Planetype { get; set; }

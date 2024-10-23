@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using AM.ApplicationCore.Domain;
 using AM.ApplicationCore.Services;
 
@@ -8,6 +9,7 @@ namespace AM.ConsoleApp
     {
         static void Main(string[] args)
         {
+            // Initialize the FlightService
             FlightService flightService = new FlightService
             {
                 Flights = TestData.listFlights
@@ -38,7 +40,7 @@ namespace AM.ConsoleApp
             Console.WriteLine("Flights ordered by duration (longest to shortest):");
             foreach (var flight in orderedFlights)
             {
-                Console.WriteLine($"- {flight.Destination} | Duration: {flight.EstimatedDuration}");
+                Console.WriteLine($"- Destination: {flight.Destination} | Duration: {flight.EstimatedDuration}");
             }
 
             // Test SeniorTravellers method
@@ -47,12 +49,26 @@ namespace AM.ConsoleApp
             Console.WriteLine("Senior travellers on flight:");
             foreach (var traveller in seniorTravellers)
             {
-                Console.WriteLine($"- {traveller.FirstName} {traveller.LastName} | Birthdate: {traveller.BirthDate}");
+                Console.WriteLine($"- {traveller.Name.FirstName} {traveller.Name.LastName} | Birthdate: {traveller.BirthDate.ToShortDateString()}");
             }
 
-            // Test DestinationGroupedFlights method
-            Console.WriteLine("Grouped flights by destination:");
-            flightService.DestinationGroupedFlights();
+            //// Test DestinationGroupedFlights method
+            //Console.WriteLine("Grouped flights by destination:");
+            //var groupedFlights = flightService.DestinationGroupedFlights();
+
+            //foreach (var group in groupedFlights)
+            //{
+            //    Console.WriteLine($"Destination: {group.Key}");
+            //    foreach (var flight in group)
+            //    {
+            //        Console.WriteLine($"  - Flight Date: {flight.FlightDate}");
+            //    }
+            //}
+            foreach (var traveller in seniorTravellers)
+            {
+                Console.WriteLine($"- {traveller.Name.FirstName} {traveller.Name.LastName} | Birthdate: {traveller.BirthDate.ToShortDateString()}");
+            }
+
         }
     }
 }
